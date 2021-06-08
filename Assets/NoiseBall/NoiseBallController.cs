@@ -1,13 +1,13 @@
 using UnityEngine;
-using RayTracingMode = UnityEngine.Experimental.Rendering.RayTracingMode;
+
+namespace NoiseBall {
 
 [ExecuteInEditMode]
-sealed class NoiseBallRenderer : MonoBehaviour
+public sealed class NoiseBallController : MonoBehaviour
 {
     #region Editable attributes
 
-    [SerializeField] NoiseBallParameters _parameters = NoiseBallParameters.Default();
-    [SerializeField] Material _material = null;
+    public NoiseBallParameters parameters = NoiseBallParameters.Default();
 
     #endregion
 
@@ -19,9 +19,8 @@ sealed class NoiseBallRenderer : MonoBehaviour
 
     #region MonoBehaviour implementation
 
-    NoiseBallMeshBuilder _builder;
+    MeshBuilder _builder;
     MeshFilter _filter;
-    MeshRenderer _renderer;
 
     void OnDisable() => OnDestroy();
 
@@ -35,9 +34,9 @@ sealed class NoiseBallRenderer : MonoBehaviour
     {
         // Mesh builder initialization/update
         if (_builder == null)
-            _builder = new NoiseBallMeshBuilder(_parameters, _compute);
+            _builder = new MeshBuilder(parameters, _compute);
         else
-            _builder.Update(_parameters);
+            _builder.Update(parameters);
 
         // Mesh filter component lazy initialization and update
         if (_filter == null)
@@ -47,17 +46,9 @@ sealed class NoiseBallRenderer : MonoBehaviour
         }
 
         _filter.sharedMesh = _builder.DynamicMesh;
-
-        // Mesh renderer component lazy initialization and update
-        if (_renderer == null)
-        {
-            _renderer = gameObject.AddComponent<MeshRenderer>();
-            _renderer.hideFlags = HideFlags.DontSave | HideFlags.NotEditable;
-            //_renderer.rayTracingMode = RayTracingMode.DynamicGeometry;
-        }
-
-        _renderer.sharedMaterial = _material;
     }
 
     #endregion
 }
+
+} // namespace NoiseBall

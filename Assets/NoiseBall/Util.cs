@@ -1,5 +1,7 @@
 using UnityEngine;
 
+namespace NoiseBall {
+
 static class Util
 {
     // "Please safely destroy this object in any situation!"
@@ -26,3 +28,5 @@ static class ComputeShaderExtensions
         compute.Dispatch(kernel, groups, 1, 1);
     }
 }
+
+} // namespace NoiseBall

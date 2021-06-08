@@ -1,34 +1,12 @@
 using UnityEngine;
 using UnityEngine.Rendering;
 
-//
-// Serializable parameter aggregate
-//
-[System.Serializable]
-struct NoiseBallParameters
-{
-    public int TriangleCount;
-    public float TriangleExtent;
-    public float NoiseFrequency;
-    public float NoiseAmplitude;
-    public Vector3 NoiseAnimation;
-
-    public static NoiseBallParameters Default()
-    {
-        var s = new NoiseBallParameters();
-        s.TriangleCount = 10000;
-        s.TriangleExtent = 0.3f;
-        s.NoiseFrequency = 2.2f;
-        s.NoiseAmplitude = 0.85f;
-        s.NoiseAnimation = new Vector3(0, 0.13f, 0.51f);
-        return s;
-    }
-}
+namespace NoiseBall {
 
 //
 // GPU compute-based noise ball mesh builder
 //
-sealed class NoiseBallMeshBuilder : System.IDisposable
+sealed class MeshBuilder : System.IDisposable
 {
     #region Public members
 
@@ -36,7 +14,7 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
     public Mesh DynamicMesh { private set; get; }
 
     // Public constructor
-    public NoiseBallMeshBuilder
+    public MeshBuilder
       (in NoiseBallParameters param, ComputeShader compute)
     {
         _compute = compute;
@@ -52,6 +30,7 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
         // Mesh initialization
         ResetMesh(param);
         BuildMesh(param);
+        UpdateBounds(param);
     }
 
     // IDisposable implementation
@@ -80,6 +59,7 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
 
         // Mesh update
         BuildMesh(param);
+        UpdateBounds(param);
     }
 
     #endregion
@@ -115,9 +95,6 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
         DynamicMesh.SetSubMesh(0, new SubMeshDescriptor(0, vertexCount),
                                MeshUpdateFlags.DontRecalculateBounds);
 
-        // Bounds (1000x1000x1000)
-        DynamicMesh.bounds = new Bounds(Vector3.zero, Vector3.one * 1000);
-
         // GraphicsBuffer references
         _vertexBuffer = DynamicMesh.GetVertexBuffer(0);
         _indexBuffer = DynamicMesh.GetIndexBuffer();
@@ -139,5 +116,11 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
         _compute.DispatchThreads(1, param.TriangleCount);
     }
 
+    void UpdateBounds(in NoiseBallParameters param)
+      => DynamicMesh.bounds = new Bounds
+           (Vector3.zero, Vector3.one * (1 + param.NoiseAmplitude * 2));
+
     #endregion
 }
+
+} // namespace NoiseBall
