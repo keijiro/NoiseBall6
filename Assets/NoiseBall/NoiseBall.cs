@@ -34,7 +34,7 @@ sealed class NoiseBall : MonoBehaviour
     {
         // Dispose previous references.
         if (_vertexBuffer != null) _vertexBuffer.Dispose();
-        if (_vertexBuffer != null) _indexBuffer.Dispose();
+        if (_indexBuffer != null) _indexBuffer.Dispose();
 
         // Vertex position: float32 x 3
         var vp = new VertexAttributeDescriptor
