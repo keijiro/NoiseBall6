@@ -126,11 +126,10 @@ sealed class NoiseBallMeshBuilder : System.IDisposable
     // Execute the compute shader to build the mesh.
     void BuildMesh(in NoiseBallParameters param)
     {
-        var pv = new Vector3
-          (param.NoiseFrequency, param.NoiseAmplitude, param.TriangleExtent);
-
         _compute.SetInt("TriangleCount", param.TriangleCount);
-        _compute.SetVector("Parameters", pv);
+        _compute.SetFloat("TriangleExtent", param.TriangleExtent);
+        _compute.SetFloat("NoiseFrequency", param.NoiseFrequency);
+        _compute.SetFloat("NoiseAmplitude", param.NoiseAmplitude);
         _compute.SetVector("NoiseOffset", _noiseOffset);
 
         _compute.SetBuffer(0, "Vertices", _vertexBuffer);

@@ -1,16 +1,20 @@
 #pragma kernel VertexBufferUpdate
 #pragma kernel IndexBufferUpdate
 
-#include "Packages/jp.keijiro.noiseshader/Shader/SimplexNoise3D.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Macros.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Random.hlsl"
+#include "Packages/jp.keijiro.noiseshader/Shader/SimplexNoise3D.hlsl"
+
+uint TriangleCount;
+float TriangleExtent;
+float NoiseFrequency;
+float NoiseAmplitude;
+float3 NoiseOffset;
 
 RWByteAddressBuffer Vertices;
 RWByteAddressBuffer Indices;
-uint TriangleCount;
-float3 Parameters;
-float3 NoiseOffset;
 
+// Uniformly distributed random points
 float3 RandomPoint(uint seed)
 {
     seed *= 2;
@@ -20,56 +24,57 @@ float3 RandomPoint(uint seed)
     return float3(cos(u) * w, sin(u) * w, z);
 }
 
-void SetVertex(uint vidx, float3 p, float3 n)
+// Write a vertex data to ByteAddressBuffer
+void WriteVertex(uint vidx, float3 p, float3 n)
 {
-    uint addr = vidx * 6 * 4;
-    Vertices.Store3(addr, asuint(p));
-    Vertices.Store3(addr + 3 * 4, asuint(n));
+    uint addr_p = vidx * 6 * 4;
+    uint addr_n = addr_p + 3 * 4;
+    Vertices.Store3(addr_p, asuint(p));
+    Vertices.Store3(addr_n, asuint(n));
 }
 
+// Kernel 0: Vertex buffer update task
 [numthreads(64, 1, 1)]
 void VertexBufferUpdate(uint id : SV_DispatchThreadID)
 {
     if (id >= TriangleCount) return;
 
-    const float NoiseFrequency = Parameters.x;
-    const float NoiseAmplitude = Parameters.y;
-    const float TriangleExtent = Parameters.z;
-
     uint vidx = id * 3;
 
+    // Three random vertices
     float3 v1 = RandomPoint(vidx + 0);
     float3 v2 = RandomPoint(vidx + 1);
     float3 v3 = RandomPoint(vidx + 2);
 
+    // Triangle size normalization
     v2 = normalize(v1 + normalize(v2 - v1) * TriangleExtent);
     v3 = normalize(v1 + normalize(v3 - v1) * TriangleExtent);
 
+    // Noise displacement modifier
     float l1 = SimplexNoise(v1 * NoiseFrequency + NoiseOffset);
     float l2 = SimplexNoise(v2 * NoiseFrequency + NoiseOffset);
     float l3 = SimplexNoise(v3 * NoiseFrequency + NoiseOffset);
 
-    l1 = abs(l1 * l1 * l1);
-    l2 = abs(l2 * l2 * l2);
-    l3 = abs(l3 * l3 * l3);
+    v1 *= 1 + abs(l1 * l1 * l1) * NoiseAmplitude;
+    v2 *= 1 + abs(l2 * l2 * l2) * NoiseAmplitude;
+    v3 *= 1 + abs(l3 * l3 * l3) * NoiseAmplitude;
 
-    v1 *= 1 + l1 * NoiseAmplitude;
-    v2 *= 1 + l2 * NoiseAmplitude;
-    v3 *= 1 + l3 * NoiseAmplitude;
-
+    // Normal vector
     float3 n = normalize(cross(v2 - v1, v3 - v1));
 
-    SetVertex(vidx + 0, v1, n);
-    SetVertex(vidx + 1, v2, n);
-    SetVertex(vidx + 2, v3, n);
+    // Write to the vertex buffer.
+    WriteVertex(vidx + 0, v1, n);
+    WriteVertex(vidx + 1, v2, n);
+    WriteVertex(vidx + 2, v3, n);
 }
 
+// Kernel 1: Index buffer update task
 [numthreads(64, 1, 1)]
 void IndexBufferUpdate(uint id : SV_DispatchThreadID)
 {
     if (id >= TriangleCount) return;
 
     uint iidx = id * 3;
-    uint3 data = uint3(iidx, iidx + 1, iidx + 2);
-    Indices.Store3(iidx * 4, data);
+
+    Indices.Store3(iidx * 4, uint3(iidx, iidx + 1, iidx + 2));
 }
