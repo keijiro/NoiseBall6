@@ -19,4 +19,4 @@ This repository contains a common source code package and multiple projects that
 - **HDRP**: HDRP sample project
 - **URP**: URP sample project
 
-The **Common** package is automatically referenced from each project. You can simply open these projects without taking care of it.
+The **Common** package is automatically referenced from each project. You can simply open these projects without any special care.
