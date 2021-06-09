@@ -1,0 +1,11 @@
+{
+    "author": "Keijiro Takahashi",
+    "dependencies": { "jp.keijiro.noiseshader": "2.0.0" },
+    "description": "NoiseBall6 common modules",
+    "displayName": "NoiseBall6",
+    "keywords": [ "unity" ],
+    "name": "jp.keijiro.noiseball6",
+    "unity": "2021.2",
+    "unityRelease": "0a19",
+    "version": "1.0.0"
+}

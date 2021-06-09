@@ -65,18 +65,17 @@
         "com.unity.render-pipelines.core": "12.0.0"
       }
     },
-    "jp.keijiro.kino.post-processing": {
-      "version": "2.1.15",
+    "jp.keijiro.noiseball6": {
+      "version": "file:../../Common",
       "depth": 0,
-      "source": "registry",
+      "source": "local",
       "dependencies": {
-        "com.unity.render-pipelines.high-definition": "7.4.1"
-      },
-      "url": "https://registry.npmjs.com"
+        "jp.keijiro.noiseshader": "2.0.0"
+      }
     },
     "jp.keijiro.noiseshader": {
       "version": "2.0.0",
-      "depth": 0,
+      "depth": 1,
       "source": "registry",
       "dependencies": {},
       "url": "https://registry.npmjs.com"
