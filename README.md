@@ -15,8 +15,8 @@ What's inside
 This repository contains a common source code package and multiple projects that work with each render pipeline/feature.
 
 - **Common**: C# scripts & compute shaders
-- **DXR**: HDRP + DXR sample project
-- **HDRP**: HDRP sample project
-- **URP**: URP sample project
+- **DXR**: HDRP + DXR sample project (requires ray-tracing hardware)
+- **HDRP**: HDRP sample project (runs on desktop/console)
+- **URP**: URP sample project (compatible with all platforms)
 
 The **Common** package is automatically referenced from each project. You can simply open these projects without any special care.
