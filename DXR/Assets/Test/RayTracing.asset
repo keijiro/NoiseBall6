@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-3626535471888125322
+--- !u!114 &-1549284960548366569
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -15,19 +15,28 @@ MonoBehaviour:
   active: 1
   quality:
     m_OverrideState: 0
-    m_Value: 1
+    m_Value: 3
   enabled:
+    m_OverrideState: 0
+    m_Value: 1
+  enabledTransparent:
+    m_OverrideState: 0
+    m_Value: 1
+  tracing:
+    m_OverrideState: 1
+    m_Value: 2
+  m_MinSmoothness:
+    m_OverrideState: 1
+    m_Value: 0.8
+  m_SmoothnessFadeStart:
+    m_OverrideState: 1
+    m_Value: 0.8
+  reflectSky:
     m_OverrideState: 0
     m_Value: 1
   usedAlgorithm:
     m_OverrideState: 0
     m_Value: 0
-  rayTracing:
-    m_OverrideState: 1
-    m_Value: 1
-  reflectSky:
-    m_OverrideState: 0
-    m_Value: 1
   depthBufferThickness:
     m_OverrideState: 0
     m_Value: 0.01
@@ -37,6 +46,39 @@ MonoBehaviour:
   accumulationFactor:
     m_OverrideState: 0
     m_Value: 0.75
+  biasFactor:
+    m_OverrideState: 0
+    m_Value: 0.5
+  speedRejectionParam:
+    m_OverrideState: 0
+    m_Value: 0.5
+  speedRejectionScalerFactor:
+    m_OverrideState: 0
+    m_Value: 0.2
+  speedSmoothReject:
+    m_OverrideState: 0
+    m_Value: 0
+  speedSurfaceOnly:
+    m_OverrideState: 0
+    m_Value: 1
+  speedTargetOnly:
+    m_OverrideState: 0
+    m_Value: 1
+  enableWorldSpeedRejection:
+    m_OverrideState: 0
+    m_Value: 0
+  m_RayMaxIterations:
+    m_OverrideState: 0
+    m_Value: 32
+  rayMiss:
+    m_OverrideState: 0
+    m_Value: 3
+  lastBounceFallbackHierarchy:
+    m_OverrideState: 0
+    m_Value: 3
+  ambientProbeDimmer:
+    m_OverrideState: 0
+    m_Value: 1
   layerMask:
     m_OverrideState: 0
     m_Value:
@@ -45,42 +87,36 @@ MonoBehaviour:
   textureLodBias:
     m_OverrideState: 0
     m_Value: 1
-  mode:
-    m_OverrideState: 0
-    m_Value: 2
-  sampleCount:
-    m_OverrideState: 0
-    m_Value: 1
-  bounceCount:
-    m_OverrideState: 0
-    m_Value: 1
-  m_MinSmoothness:
-    m_OverrideState: 0
-    m_Value: 0.9
-  m_SmoothnessFadeStart:
-    m_OverrideState: 0
-    m_Value: 0.9
-  m_RayMaxIterations:
-    m_OverrideState: 0
-    m_Value: 32
   m_RayLength:
     m_OverrideState: 0
     m_Value: 50
   m_ClampValue:
-    m_OverrideState: 0
+    m_OverrideState: 1
+    m_Value: 10
+  m_Denoise:
+    m_OverrideState: 1
     m_Value: 1
+  m_DenoiserRadius:
+    m_OverrideState: 1
+    m_Value: 8
+  m_AffectSmoothSurfaces:
+    m_OverrideState: 1
+    m_Value: 0
+  mode:
+    m_OverrideState: 1
+    m_Value: 2
   m_FullResolution:
     m_OverrideState: 0
     m_Value: 0
-  m_Denoise:
-    m_OverrideState: 0
-    m_Value: 1
-  m_DenoiserRadius:
-    m_OverrideState: 0
+  sampleCount:
+    m_OverrideState: 1
     m_Value: 8
-  m_AffectSmoothSurfaces:
+  bounceCount:
+    m_OverrideState: 1
+    m_Value: 2
+  m_RayMaxIterationsRT:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 48
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,9 +130,9 @@ MonoBehaviour:
   m_Name: RayTracing
   m_EditorClassIdentifier: 
   components:
-  - {fileID: -3626535471888125322}
-  - {fileID: 6643668153558193743}
---- !u!114 &6643668153558193743
+  - {fileID: -1549284960548366569}
+  - {fileID: 6809711817075571117}
+--- !u!114 &6809711817075571117
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -111,4 +147,4 @@ MonoBehaviour:
   active: 1
   cameraClusterRange:
     m_OverrideState: 1
-    m_Value: 30
+    m_Value: 20

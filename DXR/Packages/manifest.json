@@ -9,9 +9,8 @@
     }
   ],
   "dependencies": {
-    "com.unity.render-pipelines.high-definition": "12.0.0",
-    "com.unity.modules.jsonserialize": "1.0.0",
-    "jp.keijiro.test-assets": "1.0.1",
-    "jp.keijiro.noiseball6": "file:../../Common"
+    "com.unity.render-pipelines.high-definition": "14.0.8",
+    "jp.keijiro.noiseball6": "file:../../Common",
+    "jp.keijiro.test-assets": "1.0.1"
   }
 }

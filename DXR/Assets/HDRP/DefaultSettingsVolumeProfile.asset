@@ -12,45 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: DefaultSettingsVolumeProfile
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: 7542669330009093999}
---- !u!114 &7542669330009093999
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f086a068d4c5889438831b3ae9afc11c, type: 3}
-  m_Name: Tonemapping
-  m_EditorClassIdentifier: 
-  active: 1
-  mode:
-    m_OverrideState: 1
-    m_Value: 0
-  toeStrength:
-    m_OverrideState: 0
-    m_Value: 0
-  toeLength:
-    m_OverrideState: 0
-    m_Value: 0.5
-  shoulderStrength:
-    m_OverrideState: 0
-    m_Value: 0
-  shoulderLength:
-    m_OverrideState: 0
-    m_Value: 0.5
-  shoulderAngle:
-    m_OverrideState: 0
-    m_Value: 0
-  gamma:
-    m_OverrideState: 0
-    m_Value: 1
-  lutTexture:
-    m_OverrideState: 0
-    m_Value: {fileID: 0}
-  lutContribution:
-    m_OverrideState: 0
-    m_Value: 1
+  components: []
