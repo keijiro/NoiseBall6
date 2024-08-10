@@ -275,10 +275,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parameters:
-    TriangleCount: 10000
-    TriangleExtent: 0.3
-    NoiseFrequency: 2.2
-    NoiseAmplitude: 0.85
+    TriangleCount: 100000
+    TriangleExtent: 0.1
+    NoiseFrequency: 0.5
+    NoiseAmplitude: 0.75
     NoiseAnimation: {x: 0, y: 0.13, z: 0.51}
   _compute: {fileID: 7200000, guid: 15ecefb86962d4f0ba1f9a8c88ebf156, type: 3}
 --- !u!4 &503632574

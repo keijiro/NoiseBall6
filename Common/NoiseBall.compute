@@ -51,13 +51,25 @@ void VertexBufferUpdate(uint id : SV_DispatchThreadID)
     v3 = normalize(v1 + normalize(v3 - v1) * TriangleExtent);
 
     // Noise displacement modifier
-    float l1 = SimplexNoise(v1 * NoiseFrequency + NoiseOffset);
-    float l2 = SimplexNoise(v2 * NoiseFrequency + NoiseOffset);
-    float l3 = SimplexNoise(v3 * NoiseFrequency + NoiseOffset);
+    float3 p1 = v1 * NoiseFrequency + NoiseOffset;
+    float3 p2 = v2 * NoiseFrequency + NoiseOffset;
+    float3 p3 = v3 * NoiseFrequency + NoiseOffset;
 
-    v1 *= 1 + abs(l1 * l1 * l1) * NoiseAmplitude;
-    v2 *= 1 + abs(l2 * l2 * l2) * NoiseAmplitude;
-    v3 *= 1 + abs(l3 * l3 * l3) * NoiseAmplitude;
+    float l1 = SimplexNoise(p1);
+    float l2 = SimplexNoise(p2);
+    float l3 = SimplexNoise(p3);
+
+    l1 += SimplexNoise(p1 * 2) / 2;
+    l2 += SimplexNoise(p2 * 2) / 2;
+    l3 += SimplexNoise(p3 * 2) / 2;
+
+    l1 += SimplexNoise(p1 * 4) / 4;
+    l2 += SimplexNoise(p2 * 4) / 4;
+    l3 += SimplexNoise(p3 * 4) / 4;
+
+    v1 *= 1 + l1 * NoiseAmplitude;
+    v2 *= 1 + l2 * NoiseAmplitude;
+    v3 *= 1 + l3 * NoiseAmplitude;
 
     // Normal vector
     float3 n = normalize(cross(v2 - v1, v3 - v1));
