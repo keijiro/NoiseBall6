@@ -1,0 +1,26 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Test/Configurator.uss?fileID=7433441132597879392&amp;guid=d1f8362fc5c0642f89b93581bfb5ced2&amp;type=3#Configurator" />
+    <engine:VisualElement name="container" data-source-type="NoiseBall.Configurator, Assembly-CSharp" style="max-width: 300px; position: absolute; top: 12px; right: 12px; width: 100%;">
+        <engine:VisualElement name="density-labels">
+            <engine:Label text="Triangle Count" />
+            <engine:Label text="65,536" style="position: absolute; -unity-text-align: upper-right; right: 0;">
+                <Bindings>
+                    <engine:DataBinding property="text" data-source-path="TriangleCount" binding-mode="ToTarget" source-to-ui-converters="Thousands Separator" />
+                </Bindings>
+            </engine:Label>
+        </engine:VisualElement>
+        <engine:Slider high-value="1" name="density-slider" fill="true">
+            <Bindings>
+                <engine:DataBinding property="value" data-source-path="Density" binding-mode="TwoWay" />
+            </Bindings>
+        </engine:Slider>
+        <engine:VisualElement name="fps-labels" style="align-self: flex-end; flex-direction: row;">
+            <engine:Label text="100">
+                <Bindings>
+                    <engine:DataBinding property="text" data-source-path="Fps" binding-mode="ToTarget" />
+                </Bindings>
+            </engine:Label>
+            <engine:Label text="  frames per second" />
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>
